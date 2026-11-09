@@ -22,7 +22,7 @@ lets your community test itself with trivia, and keeps a leaderboard so everyone
 - **Lore**: a random lore page, or look one up by topic.
 - **Your questions**: submit your own trivia and quotes for admin review.
 
-Type `!help` in a server that has Ashquill to see every command (servers can change the `!` prefix).
+See the [full command list](https://frenchietmh.github.io/ashquill/#commands), or type `!help` in a server that has Ashquill (servers can change the `!` prefix).
 
 ## Support
 

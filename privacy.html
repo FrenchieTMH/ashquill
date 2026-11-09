@@ -36,12 +36,14 @@
   .card strong { color:var(--gold2); display:block; margin-bottom:4px; font-weight:normal; letter-spacing:.04em; }
   .card span { color:var(--muted); font-size:.95rem; line-height:1.5; display:block; }
   footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; line-height:1.55; }
+  @media (max-width: 560px) { nav { gap:10px 22px; } nav .brand { flex-basis:100%; } }
 </style>
 </head>
 <body>
 <div class="wrap">
 <nav>
   <a class="brand" href="index.html"><img src="ashquill.png" alt="">ASHQUILL</a>
+  <a class="link" href="index.html#commands">Commands</a>
   <a class="link" href="privacy.html" aria-current="page">Privacy</a>
   <a class="link" href="terms.html">Terms</a>
 </nav>
