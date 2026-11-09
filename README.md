@@ -26,7 +26,8 @@ See the [full command list](https://frenchietmh.github.io/ashquill/#commands), o
 
 ## Support
 
-Questions, problems or data removal requests: [open an issue](https://github.com/FrenchieTMH/ashquill/issues).
+Questions or problems: [open an issue](https://github.com/FrenchieTMH/ashquill/issues).
+Data removal requests and privacy questions: email [ashquilldiscord@gmail.com](mailto:ashquilldiscord@gmail.com) (please don't post your Discord ID in a public issue).
 
 ## About this repository
 
