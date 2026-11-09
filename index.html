@@ -6,6 +6,17 @@
 <title>Ashquill: an Elder Scrolls companion for Discord</title>
 <meta name="description" content="Ashquill is a fan-made Discord bot for Elder Scrolls lore, quotes and trivia.">
 <link rel="icon" href="ashquill.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ashquill">
+<meta property="og:title" content="Ashquill: an Elder Scrolls companion for Discord">
+<meta property="og:description" content="A fan-made Discord bot for Elder Scrolls lore, NPC quotes and trivia, with a server leaderboard.">
+<meta property="og:url" content="https://frenchietmh.github.io/ashquill/">
+<meta property="og:image" content="https://frenchietmh.github.io/ashquill/ashquill-banner.png">
+<meta property="og:image:width" content="1360">
+<meta property="og:image:height" content="480">
+<meta property="og:image:alt" content="Ashquill: lore, quotes, trivia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#e8c268">
 <style>
   :root { --bg:#0e141c; --panel:#151d28; --text:#e6dfcc; --muted:#a79f8a; --gold:#e8c268; --gold2:#f1d58a; --line:#2a3544; }
   * { box-sizing: border-box; }
@@ -84,12 +95,22 @@ Type <code>!help</code> in your server for a quick reminder.</p>
 
 <h3>Play</h3>
 <ul class="cmds">
-  <li><code>!trivia</code><span>Answer an Elder Scrolls trivia question. The source is shown after every round.</span></li>
+  <li><code>!trivia</code><span>Answer an Elder Scrolls trivia question. The source is shown after every round.
+      Stuck? A hint appears after 15 seconds.</span></li>
   <li><code>!guessquote</code><span>Guess who said a quote, then try to name the game it came from.</span></li>
   <li><code>!guessgame</code><span>Which game is this line from? Also works as <code>!whichgame</code>.</span></li>
-  <li><code>!trivia 5</code><span>Add a number to any game above to play a match of 3 to 10 rounds in a row.</span></li>
+  <li><code>!trivia skyrim</code><span>Stick to one game in <code>!trivia</code> or <code>!guessquote</code>:
+      <code>skyrim</code>, <code>oblivion</code>, <code>morrowind</code>, <code>eso</code> (or <code>sr</code>, <code>ob</code>, <code>mw</code>).</span></li>
+  <li><code>!trivia 5</code><span>Add a number to any game above to play a match of 3 to 10 rounds in a row.
+      Mix both: <code>!trivia mw 5</code>.</span></li>
   <li><code>!stop</code><span>End the match after the current round (the player who started it, or an admin).</span></li>
-  <li><code>!leaderboard</code><span>See who really knows Tamriel best.</span></li>
+</ul>
+
+<h3>Scores</h3>
+<ul class="cmds">
+  <li><code>!leaderboard</code><span>This server&rsquo;s top 10. Add <code>trivia</code>, <code>quote</code> or <code>game</code> for one game,
+      or <code>month</code> for this month&rsquo;s season.</span></li>
+  <li><code>!rank</code><span>Your place, points and personal bests (longest streak, fastest answer). <code>!rank @name</code> for someone else.</span></li>
 </ul>
 
 <h3>Explore</h3>
@@ -122,6 +143,7 @@ Type <code>!help</code> in your server for a quick reminder.</p>
   <li><code>!pendingreports</code><span>See reports of wrong answers. <code>!approvereport</code> passes one on to be fixed;
       <code>!refusereport</code> rejects it and tells the reporter why.</span></li>
   <li><code>!memberwelcome</code><span>Greet new members: <code>on</code>, <code>off</code>, <code>channel</code>, <code>message</code> or <code>test</code>. Off by default.</span></li>
+  <li><code>!dailylore</code><span>Post a lore page every day from noon: <code>on</code>, <code>off</code>, <code>channel</code> or <code>test</code>. Off by default.</span></li>
 </ul>
 
 <h2>Policies</h2>
