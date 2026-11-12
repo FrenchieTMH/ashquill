@@ -3,161 +3,399 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ashquill: an Elder Scrolls companion for Discord</title>
-<meta name="description" content="Ashquill is a fan-made Discord bot for Elder Scrolls lore, quotes and trivia.">
-<link rel="icon" href="ashquill.png">
+<title>Ashquill: Elder Scrolls lore, quotes and trivia for Discord</title>
+<meta name="description" content="Ashquill is a free, fan-made Discord bot for Elder Scrolls trivia, NPC quotes and lore from UESP, with matches, hints, streaks and server leaderboards.">
+<link rel="canonical" href="https://frenchietmh.github.io/ashquill/">
+<link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png" sizes="180x180">
+<meta name="theme-color" content="#e8c268">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ashquill">
-<meta property="og:title" content="Ashquill: an Elder Scrolls companion for Discord">
-<meta property="og:description" content="A fan-made Discord bot for Elder Scrolls lore, NPC quotes and trivia, with a server leaderboard.">
+<meta property="og:title" content="Ashquill: Elder Scrolls lore, quotes and trivia for Discord">
+<meta property="og:description" content="Ashquill is a free, fan-made Discord bot for Elder Scrolls trivia, NPC quotes and lore from UESP, with matches, hints, streaks and server leaderboards.">
 <meta property="og:url" content="https://frenchietmh.github.io/ashquill/">
-<meta property="og:image" content="https://frenchietmh.github.io/ashquill/ashquill-banner.png">
-<meta property="og:image:width" content="1360">
-<meta property="og:image:height" content="480">
-<meta property="og:image:alt" content="Ashquill: lore, quotes, trivia">
+<meta property="og:image" content="https://frenchietmh.github.io/ashquill/img/social-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Ashquill banner: the name Ashquill above the words Lore, Quotes, Trivia, beside a glowing quill writing in an open book, in gold on dark navy.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#e8c268">
-<style>
-  :root { --bg:#0e141c; --panel:#151d28; --text:#e6dfcc; --muted:#a79f8a; --gold:#e8c268; --gold2:#f1d58a; --line:#2a3544; }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin:0; background: radial-gradient(1200px 600px at 80% -10%, #1f2a3a 0%, var(--bg) 60%) fixed, var(--bg);
-         color: var(--text); font: 18px/1.65 Georgia, "Times New Roman", serif; }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 28px 22px 64px; }
-  nav { display:flex; gap:22px; align-items:center; flex-wrap:wrap; padding-bottom:18px; border-bottom:1px solid var(--line); margin-bottom:34px; }
-  nav .brand { display:flex; align-items:center; gap:12px; color:var(--gold); text-decoration:none; letter-spacing:.14em; font-size:20px; margin-right:auto; }
-  nav .brand img { width:38px; height:38px; border-radius:50%; }
-  nav a.link { color:var(--muted); text-decoration:none; font-size:16px; }
-  nav a.link:hover, nav a.link[aria-current] { color:var(--gold2); }
-  h1 { font-weight:normal; color:var(--gold); font-size:2.2rem; line-height:1.2; margin:0 0 6px; letter-spacing:.04em; }
-  h2 { font-weight:normal; color:var(--gold2); font-size:1.3rem; margin:34px 0 8px; padding-bottom:6px; border-bottom:1px solid var(--line); }
-  p, li { color:var(--text); }
-  li { margin:8px 0; }
-  ul { padding-left:1.2em; }
-  a { color:var(--gold2); }
-  code { background:var(--panel); border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-size:.9em; }
-  .meta { color:var(--muted); font-size:.95rem; margin:0 0 24px; }
-  .hero { text-align:center; padding:12px 0 8px; }
-  .hero img { width:168px; height:168px; border-radius:50%; box-shadow:0 0 60px rgba(255,154,60,.25); }
-  .hero h1 { font-size:2.8rem; letter-spacing:.16em; margin-top:18px; }
-  .tag { color:var(--muted); font-style:italic; }
-  .cards { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:26px 0; }
-  @media (max-width: 560px) { .cards { grid-template-columns:1fr; } }
-  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
-  .card strong { color:var(--gold2); display:block; margin-bottom:4px; font-weight:normal; letter-spacing:.04em; }
-  .card span { color:var(--muted); font-size:.95rem; line-height:1.5; display:block; }
-  footer { margin-top:48px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:.88rem; line-height:1.55; }
-  .btn { display:inline-block; margin-top:18px; padding:12px 26px; border-radius:999px; background:var(--gold);
-         color:#0e141c; font: 600 17px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing:.02em;
-         text-decoration:none; box-shadow:0 0 28px rgba(232,194,104,.25); transition:background .15s, box-shadow .15s; }
-  .btn:hover, .btn:focus-visible { background:var(--gold2); box-shadow:0 0 36px rgba(241,213,138,.4); }
-  .btn:focus-visible { outline:2px solid var(--gold2); outline-offset:3px; }
-  h3 { font-weight:normal; color:var(--gold); font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; margin:28px 0 6px; }
-  .cmds { list-style:none; padding:0; margin:0; }
-  .cmds li { display:grid; grid-template-columns:11rem 1fr; gap:4px 18px; align-items:baseline;
-             margin:0; padding:10px 0; border-bottom:1px solid var(--line); }
-  .cmds li > code { justify-self:start; color:var(--gold2); }
-  .cmds span { color:var(--text); font-size:.95rem; line-height:1.55; overflow-wrap:anywhere; }
-  .cmds span code { white-space:nowrap; }
-  @media (max-width: 560px) { .cmds li { grid-template-columns:1fr; } }
-  @media (max-width: 560px) { nav { gap:10px 22px; } nav .brand { flex-basis:100%; } }
-</style>
+<meta name="twitter:title" content="Ashquill: Elder Scrolls lore, quotes and trivia for Discord">
+<meta name="twitter:description" content="Ashquill is a free, fan-made Discord bot for Elder Scrolls trivia, NPC quotes and lore from UESP, with matches, hints, streaks and server leaderboards.">
+<meta name="twitter:image" content="https://frenchietmh.github.io/ashquill/img/social-preview.jpg">
+<meta name="twitter:image:alt" content="The Ashquill banner: the name Ashquill above the words Lore, Quotes, Trivia, beside a glowing quill writing in an open book, in gold on dark navy.">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ashquill",
+  "description": "A free, fan-made Discord bot for Elder Scrolls lore, NPC quotes and trivia, drawn from the Unofficial Elder Scrolls Pages (UESP).",
+  "url": "https://frenchietmh.github.io/ashquill/",
+  "image": "https://frenchietmh.github.io/ashquill/ashquill.png",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Discord",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
 </head>
 <body>
-<div class="wrap">
-<nav>
-  <a class="brand" href="index.html"><img src="ashquill.png" alt="">ASHQUILL</a>
-  <a class="link" href="index.html#commands">Commands</a>
-  <a class="link" href="privacy.html">Privacy</a>
-  <a class="link" href="terms.html">Terms</a>
-</nav>
+<a class="skip" href="#main">Skip to content</a>
 
-<div class="hero">
-  <img src="ashquill.png" alt="Ashquill: a glowing quill writing in an open book">
-  <h1>ASHQUILL</h1>
-  <p class="tag">An Elder Scrolls companion for your Discord server</p>
-  <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1350625493149548565&amp;permissions=85056&amp;integration_type=0&amp;scope=applications.commands+bot">Add Ashquill to Discord</a>
-</div>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html"><img src="img/logo-96.png" alt="" width="36" height="36">ASHQUILL</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#commands">Commands</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--small" href="https://discord.com/oauth2/authorize?client_id=1350625493149548565">Add to Discord</a>
+  </div>
+</header>
 
-<p>Ashquill brings random lore and NPC quotes from the Unofficial Elder Scrolls Pages (UESP) to your server,
-lets your community test itself with trivia, and keeps a leaderboard so everyone can settle who really knows Tamriel best.</p>
+<main id="main">
 
-<div class="cards">
-  <div class="card"><strong>Trivia</strong><span>Questions with a source shown after every round.</span></div>
-  <div class="card"><strong>Guess the quote</strong><span>Who said it? Then try to name the game it came from.</span></div>
-  <div class="card"><strong>Lore</strong><span>A random lore page, or look one up by topic.</span></div>
-  <div class="card"><strong>Your questions</strong><span>Submit your own trivia and quotes for admin review.</span></div>
-</div>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <img class="hero-logo" src="img/logo-384.jpg" alt="Ashquill logo: a glowing quill writing in an open book" width="192" height="192">
+      <h1 id="hero-title">Ashquill</h1>
+      <span class="kicker">Lore &middot; Quotes &middot; Trivia</span>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="tagline">An Elder Scrolls companion for your Discord server</p>
+      <p class="what">A free, fan-made Discord bot for Elder Scrolls lore, NPC quotes and trivia, drawn from the Unofficial Elder Scrolls Pages (UESP).</p>
+      <div class="hero-actions">
+        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1350625493149548565">Add Ashquill to Discord</a>
+        <a class="text-link" href="#commands">See the commands</a>
+      </div>
+    </div>
+  </section>
 
-<h2 id="commands">Commands</h2>
-<p class="meta">Commands start with <code>!</code> by default. Server admins can change it with <code>!setprefix</code>.
-Type <code>!help</code> in your server for a quick reminder.</p>
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">What it does</span>
+        <h2 id="features-title">Games, lore and a leaderboard for your server</h2>
+      </div>
+      <ul class="ledger">
+        <li>
+          <span class="num" aria-hidden="true">I</span>
+          <div>
+            <h3>Trivia &amp; matches</h3>
+            <p>Elder Scrolls trivia with 30 seconds to answer, and a hint if nobody has answered after 15. Play one question, or add a number for a match of 3 to 10 rounds, with medals at the end.</p>
+            <p class="try">Try <code>!trivia 5</code></p>
+          </div>
+        </li>
+        <li>
+          <span class="num" aria-hidden="true">II</span>
+          <div>
+            <h3>Guess the quote &amp; Which game</h3>
+            <p>Guess who said an NPC line, then name the game it came from. Or play Which game: read a line and name the game it&rsquo;s from.</p>
+            <p class="try">Try <code>!guessquote</code></p>
+          </div>
+        </li>
+        <li>
+          <span class="num" aria-hidden="true">III</span>
+          <div>
+            <h3>Lore &amp; quotes</h3>
+            <p>A random lore page from UESP, or look up a topic. Pull a random NPC quote, or one from a single game.</p>
+            <p class="try">Try <code>!lore dwemer</code></p>
+          </div>
+        </li>
+        <li>
+          <span class="num" aria-hidden="true">IV</span>
+          <div>
+            <h3>Leaderboards &amp; seasons</h3>
+            <p>Your server&rsquo;s top 10, overall or per game, plus a monthly season with last month&rsquo;s champion. Check your own place, longest streak and fastest answer.</p>
+            <p class="try">Try <code>!leaderboard month</code></p>
+          </div>
+        </li>
+        <li>
+          <span class="num" aria-hidden="true">V</span>
+          <div>
+            <h3>Your own questions</h3>
+            <p>Submit your own trivia questions and quotes. Ashquill asks for each part in turn, and an admin reviews them.</p>
+            <p class="try">Try <code>!submittrivia</code></p>
+          </div>
+        </li>
+      </ul>
+      <p class="sourced">Every trivia question and guess-the-quote line was checked against a source page, and Ashquill shows that source after every round.</p>
+    </div>
+  </section>
 
-<h3>Play</h3>
-<p class="meta">In every game, a hint appears if nobody has answered after 15 seconds.</p>
-<ul class="cmds">
-  <li><code>!trivia</code><span>Answer an Elder Scrolls trivia question. The source is shown after every round.</span></li>
-  <li><code>!guessquote</code><span>Guess who said a quote, then try to name the game it came from.</span></li>
-  <li><code>!guessgame</code><span>Which game is this line from? Also works as <code>!whichgame</code>.</span></li>
-  <li><code>!trivia skyrim</code><span>Stick to one game in <code>!trivia</code> or <code>!guessquote</code>:
-      <code>skyrim</code>, <code>oblivion</code>, <code>morrowind</code>, <code>eso</code> (or <code>sr</code>, <code>ob</code>, <code>mw</code>).</span></li>
-  <li><code>!trivia 5</code><span>Add a number to any game above to play a match of 3 to 10 rounds in a row.
-      Mix both: <code>!trivia mw 5</code>.</span></li>
-  <li><code>!stop</code><span>End the match after the current round (the player who started it, or an admin).</span></li>
-</ul>
+  <section class="section" id="in-action" aria-labelledby="shots-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Screenshots</span>
+        <h2 id="shots-title">See it in action</h2>
+      </div>
+      <ul class="shots">
+        <li>
+          <figure class="shot">
+            <div class="shot-frame">
+              <a href="img/shot-trivia.png" title="Open the full-size screenshot"><img src="img/shot-trivia.png" width="675" height="326" loading="lazy" decoding="async"
+                   alt="Discord chat. Ashquill asks: Which province is home to the Khajiit? A hint shows E followed by blanks, 7 letters. A player answers Elsweyr. Ashquill replies: got it right in 17.2 s, the answer is Elsweyr, +1 point, 3 in a row, with a UESP source link."></a>
+            </div>
+            <figcaption>A <code>!trivia</code> round: the hint after 15 seconds, then the answer time, the streak and the source.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="shot">
+            <div class="shot-frame">
+              <a href="img/shot-lorerank.png" title="Open the full-size screenshot"><img src="img/shot-lorerank.png" width="598" height="207" loading="lazy" decoding="async"
+                   alt="Discord chat. A player types !lorerank. Ashquill replies with their all-time place and points split into Trivia, Guessquote and Which game, the same for November, and personal bests: best streak 7, fastest answer 10.1 s."></a>
+            </div>
+            <figcaption><code>!lorerank</code>: your place, points and personal bests.</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="shot">
+            <div class="shot-frame">
+              <a href="img/shot-daggerfall.png" title="Open the full-size screenshot"><img src="img/shot-daggerfall.png" width="1127" height="342" loading="lazy" decoding="async"
+                   alt="Discord chat. Ashquill asks: Who said this? (Daggerfall), with a quote and a hint U, S, V with blanks, 14 letters. A player answers uriel septim vii. Ashquill replies: got it right in 23.4 s, the answer is Uriel Septim VII, also accepted Uriel Septim, Uriel, Emperor Uriel Septim, +1 point, 7 in a row, with a UESP source link."></a>
+            </div>
+            <figcaption>Guess the quote, Daggerfall only (<code>!guessquote daggerfall</code>): alternate answers are accepted too.</figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-<h3>Scores</h3>
-<ul class="cmds">
-  <li><code>!leaderboard</code><span>This server&rsquo;s top 10. Add <code>trivia</code>, <code>quote</code> or <code>game</code> for one game,
-      or <code>month</code> for this month&rsquo;s season.</span></li>
-  <li><code>!lorerank</code><span>Your place, points and personal bests (longest streak, fastest answer). <code>!lorerank @name</code> for someone else.</span></li>
-</ul>
+  <section class="section" id="get-started" aria-labelledby="start-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Get started</span>
+        <h2 id="start-title">Three steps to your first round</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Add Ashquill</h3>
+          <p><a href="https://discord.com/oauth2/authorize?client_id=1350625493149548565">Invite Ashquill</a> to your Discord server.</p>
+        </li>
+        <li>
+          <h3>Type <code>!help</code></h3>
+          <p>See the commands in Discord.</p>
+        </li>
+        <li>
+          <h3>Try <code>!trivia</code></h3>
+          <p>Or start a match with <code>!trivia 5</code>.</p>
+        </li>
+      </ol>
+      <div class="aside">
+        <p><strong>For admins:</strong> <code>!dailylore on</code> posts a lore page every day.</p>
+        <p><strong>Need a hand?</strong> Ask in the <a href="https://discord.gg/X2mpSVK5D3">Ashquill support server</a>.</p>
+      </div>
+    </div>
+  </section>
 
-<h3>Explore</h3>
-<ul class="cmds">
-  <li><code>!lore</code><span>A random lore page from UESP, or look one up by topic: <code>!lore dwemer</code>.</span></li>
-  <li><code>!quote</code><span>A random NPC quote, or one from a single game: <code>!quote morrowind</code>, <code>!quote eso</code>.</span></li>
-  <li><code>!poll</code><span>Start a poll: <code>!poll Question? | Option 1 | Option 2</code>. With no options, it&rsquo;s a yes/no poll.</span></li>
-</ul>
+  <section class="section" id="commands" aria-labelledby="commands-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Reference</span>
+        <h2 id="commands-title">Commands</h2>
+        <p class="note">Commands start with <code>!</code> by default. Server admins can change it with <code>!setprefix</code>.
+        Type <code>!help</code> in your server for a quick reminder.</p>
+      </div>
 
-<h3>Contribute</h3>
-<ul class="cmds">
-  <li><code>!submittrivia</code><span>Submit your own trivia question. Ashquill asks for the question, then the answer. An admin reviews it.</span></li>
-  <li><code>!submitquote</code><span>Submit a quote for Guess the Quote. Ashquill asks for the quote, then the speaker.</span></li>
-  <li><code>!report</code><span>Think the last answer was wrong? <code>!report &lt;link&gt; &lt;reason&gt;</code>, with a link that proves it.</span></li>
-</ul>
+      <div class="filter" id="cmd-filter" hidden>
+        <label for="cmd-filter-input">Filter commands</label>
+        <input type="search" id="cmd-filter-input" placeholder="e.g. leaderboard" autocomplete="off" spellcheck="false">
+        <p class="filter-status" id="cmd-filter-status" aria-live="polite"></p>
+      </div>
 
-<h3>General</h3>
-<ul class="cmds">
-  <li><code>!help</code><span>Show the list of commands in Discord.</span></li>
-  <li><code>!welcome</code><span>Post Ashquill&rsquo;s welcome message again.</span></li>
-</ul>
+      <div class="cmd-group">
+        <h3>Play</h3>
+        <ul class="cmds">
+          <li><code>!trivia</code><span class="desc">An Elder Scrolls trivia question. You have 30 seconds to answer, and the source is shown after every round.</span></li>
+          <li><code>!guessquote</code><span class="desc">Guess who said a quote, then try to name the game it came from.</span></li>
+          <li><code>!guessgame</code><span class="desc">Which game is this NPC line from? Type the game: <code>skyrim</code>, <code>sr</code>, <code>eso</code> and so on. Also works as <code>!whichgame</code>.</span></li>
+          <li><code>!trivia skyrim</code><span class="desc">Stick to one game in <code>!trivia</code> or <code>!guessquote</code>, for example <code>!trivia daggerfall</code> or <code>!guessquote mw</code>.
+            Games: Skyrim (<code>skyrim</code>, <code>sr</code>), Oblivion (<code>oblivion</code>, <code>ob</code>), Morrowind (<code>morrowind</code>, <code>mw</code>),
+            Daggerfall (<code>daggerfall</code>, <code>df</code>), The Elder Scrolls Online (<code>eso</code>, <code>teso</code>, <code>online</code>),
+            and <code>lore</code> for trivia only (<code>!guessquote lore</code> is refused: too few lines). <code>!guessgame</code> takes no game filter.</span></li>
+          <li><code>!trivia 5</code><span class="desc">Play a match of 3 to 10 rounds: <code>!trivia 5</code>, <code>!guessquote 5</code> or <code>!guessgame 5</code>.
+            Combine it with a game: <code>!trivia mw 5</code>. Rounds are headed &ldquo;Round n/N&rdquo;, the match ends early after 2 unanswered rounds,
+            and results are shown with medals.</span></li>
+          <li><code>!stop</code><span class="desc">End the match after the current round (the player who started it, or an admin).</span></li>
+        </ul>
+        <ul class="notes">
+          <li><strong>Hints:</strong> if nobody has answered after 15 seconds, a hint appears: the first letter of each word with the rest blanked,
+            and the letter count. In <code>!guessgame</code> it rules out two wrong games. In every game, single rounds and matches.</li>
+          <li><strong>Speed and streaks:</strong> the answer reveal says how fast the winner answered (&ldquo;got it right in 4.2 s&rdquo;),
+            shows a streak (&ldquo;3 in a row&rdquo;), and says when someone&rsquo;s streak ends.</li>
+          <li><strong>No repeats:</strong> each server goes through every question once before any repeats.</li>
+        </ul>
+      </div>
 
-<h3>For server admins</h3>
-<p class="meta">These need the Administrator permission in your server. Type <code>!adminhelp</code> to see them in Discord.</p>
-<ul class="cmds">
-  <li><code>!setprefix</code><span>Change the command prefix for your server: <code>!setprefix ?</code>.</span></li>
-  <li><code>!pendingtrivia</code><span>See trivia submissions waiting for review, numbered. <code>!pendingquotes</code> does the same for quotes.</span></li>
-  <li><code>!approvetrivia</code><span>Approve or reject a submission by its number: <code>!approvetrivia 2</code>, <code>!refusetrivia 2</code>,
-      <code>!approvequote 1</code>, <code>!refusequote 1</code>.</span></li>
-  <li><code>!pendingreports</code><span>See reports of wrong answers. <code>!approvereport</code> passes one on to be fixed;
-      <code>!refusereport</code> rejects it and tells the reporter why.</span></li>
-  <li><code>!memberwelcome</code><span>Greet new members: <code>on</code>, <code>off</code>, <code>channel</code>, <code>message</code> or <code>test</code>. Off by default.</span></li>
-  <li><code>!dailylore</code><span>Post a lore page every day from noon: <code>on</code>, <code>off</code>, <code>channel</code> or <code>test</code>. Off by default.</span></li>
-  <li><code>!rankalias</code><span>Let <code>!rank</code> work as <code>!lorerank</code> in your server: <code>on</code> or <code>off</code>. Off by default, so it never clashes with level bots like MEE6 that also use <code>!rank</code>.</span></li>
-</ul>
+      <div class="cmd-group">
+        <h3>Scores</h3>
+        <ul class="cmds">
+          <li><code>!leaderboard</code><span class="desc">This server&rsquo;s top 10. <code>!leaderboard trivia</code>, <code>!leaderboard quote</code> or <code>!leaderboard game</code> for one game.</span></li>
+          <li><code>!leaderboard month</code><span class="desc">This month&rsquo;s season and last month&rsquo;s champion.</span></li>
+          <li><code>!lorerank</code><span class="desc">Your place, points, the gap to the next player (all-time and this month), and personal bests:
+            longest streak and fastest correct answer (answers under 1.5 s don&rsquo;t count as records). <code>!lorerank @name</code> for someone else.
+            It used to be <code>!rank</code>; see <code>!rankalias</code>.</span></li>
+        </ul>
+      </div>
 
-<h2>Policies</h2>
-<ul>
-  <li><a href="privacy.html">Privacy Policy</a></li>
-  <li><a href="terms.html">Terms of Service</a></li>
-</ul>
-<p>Questions or problems? <a href="https://github.com/FrenchieTMH/ashquill/issues">Open an issue on GitHub</a>, or email <a href="mailto:ashquilldiscord@gmail.com">ashquilldiscord@gmail.com</a>.</p>
+      <div class="cmd-group">
+        <h3>Explore</h3>
+        <ul class="cmds">
+          <li><code>!lore</code><span class="desc">A random lore page from UESP, or look one up: <code>!lore dwemer</code>.</span></li>
+          <li><code>!quote</code><span class="desc">A random NPC quote, or one from a single game: <code>!quote morrowind</code>, <code>!quote eso</code> (also <code>sr</code>, <code>ob</code>, <code>mw</code>, <code>df</code>).</span></li>
+          <li><code>!poll</code><span class="desc">Start a poll: <code>!poll Question? | Option 1 | Option 2</code>. With no options, it&rsquo;s a yes/no poll.</span></li>
+        </ul>
+      </div>
 
-<footer>
-  Ashquill is a fan-made project and is not affiliated with or endorsed by Bethesda Softworks or ZeniMax Media.
-  The Elder Scrolls and related names are trademarks of their respective owners.
+      <div class="cmd-group">
+        <h3>Contribute</h3>
+        <ul class="cmds">
+          <li><code>!submittrivia</code><span class="desc">Submit your own trivia question. Ashquill asks for the question, then the answer. An admin reviews it.</span></li>
+          <li><code>!submitquote</code><span class="desc">Submit a quote for Guess the Quote. Ashquill asks for the quote, then the speaker. An admin reviews it.</span></li>
+          <li><code>!report</code><span class="desc">Think the last question&rsquo;s answer was wrong? <code>!report &lt;link&gt; &lt;reason&gt;</code>, with a link that proves it.</span></li>
+        </ul>
+      </div>
+
+      <div class="cmd-group">
+        <h3>General</h3>
+        <ul class="cmds">
+          <li><code>!help</code><span class="desc">The command list in Discord. It ends with a link to this website.</span></li>
+          <li><code>!welcome</code><span class="desc">Post Ashquill&rsquo;s welcome message again.</span></li>
+        </ul>
+      </div>
+
+      <div class="cmd-group">
+        <h3>For server admins</h3>
+        <p class="note">These need the Administrator permission in your server. Type <code>!adminhelp</code> to see them in Discord.</p>
+        <ul class="cmds">
+          <li><code>!setprefix</code><span class="desc">Change the command prefix for your server: <code>!setprefix &lt;prefix&gt;</code>.</span></li>
+          <li><code>!pendingtrivia</code><span class="desc">Trivia submissions waiting for review, numbered. <code>!pendingquotes</code> does the same for quotes.</span></li>
+          <li><code>!approvetrivia</code><span class="desc">Approve or refuse a submission by its number or text: <code>!approvetrivia</code>, <code>!refusetrivia</code>,
+            <code>!approvequote</code> or <code>!refusequote</code>, for example <code>!approvetrivia 2</code>.</span></li>
+          <li><code>!pendingreports</code><span class="desc">Reports of wrong answers, numbered. <code>!approvereport &lt;number&gt;</code> passes one on to be fixed;
+            <code>!refusereport &lt;number&gt;</code> rejects it, and the reporter is told why.</span></li>
+          <li><code>!memberwelcome</code><span class="desc">Greet new members: <code>on</code>, <code>off</code>, <code>channel</code>, <code>message</code> or <code>test</code>. Off by default. Also works as <code>!joinwelcome</code>.</span></li>
+          <li><code>!dailylore</code><span class="desc">Post a lore page once a day from noon: <code>on</code>, <code>off</code>, <code>channel</code> or <code>test</code>. Off by default.</span></li>
+          <li><code>!rankalias</code><span class="desc">Let <code>!rank</code> work as <code>!lorerank</code> in your server: <code>on</code> or <code>off</code>. Off by default, so it never clashes with level bots like MEE6 that also use <code>!rank</code>. While it&rsquo;s off, <code>!rank</code> does nothing.</span></li>
+        </ul>
+      </div>
+      <p class="no-match" id="cmd-no-match" hidden>No commands match that filter.</p>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Questions</span>
+        <h2 id="faq-title">FAQ</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Is Ashquill free?</summary>
+          <div class="answer">
+            <p>Yes. As the <a href="terms.html">Terms of Service</a> put it, Ashquill is provided free and as is.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Is it an official Elder Scrolls bot?</summary>
+          <div class="answer">
+            <p>No. Ashquill is a fan-made project and is not affiliated with or endorsed by Bethesda Softworks or ZeniMax Media.
+            The Elder Scrolls and related names are trademarks of their respective owners.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What does Ashquill store?</summary>
+          <div class="answer">
+            <p>Among other things, your Discord user ID with your points and personal bests, anything you submit or report, and server settings.
+            The <a href="privacy.html">Privacy Policy</a> lists exactly what is stored, how long logs are kept, and how to have your data deleted.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How do I report a problem?</summary>
+          <div class="answer">
+            <p>A wrong answer: type <code>!report &lt;link&gt; &lt;reason&gt;</code> in Discord, with a link that proves it.
+            Help, questions and suggestions: join the <a href="https://discord.gg/X2mpSVK5D3">Ashquill support server</a>.
+            Bugs: you can also <a href="https://github.com/FrenchieTMH/ashquill/issues">open an issue on GitHub</a>.
+            Privacy or data requests: email <a href="mailto:ashquilldiscord@gmail.com">ashquilldiscord@gmail.com</a>.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Who runs Ashquill?</summary>
+          <div class="answer">
+            <p>One person, as a hobby project. Ashquill runs on the owner&rsquo;s own computer.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="policies" aria-labelledby="policies-title">
+    <div class="container">
+      <h2 id="policies-title">Policies</h2>
+      <ul class="policies">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <p class="footer-brand"><img src="img/logo-96.png" alt="" width="32" height="32" loading="lazy">ASHQUILL</p>
+      <ul class="footer-links">
+        <li><a href="https://discord.gg/X2mpSVK5D3">Support server on Discord</a></li>
+        <li><a href="https://github.com/FrenchieTMH/ashquill/issues">Open an issue on GitHub</a></li>
+        <li><a href="mailto:ashquilldiscord@gmail.com">ashquilldiscord@gmail.com</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+      <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1350625493149548565">Add Ashquill to Discord</a>
+    </div>
+    <p class="disclaimer">Ashquill is a fan-made project and is not affiliated with or endorsed by Bethesda Softworks or ZeniMax Media.
+    The Elder Scrolls and related names are trademarks of their respective owners.</p>
+  </div>
 </footer>
-</div>
+
+<script>
+/* Optional command filter. Without JavaScript the box stays hidden and the full list shows. */
+(function () {
+  var box = document.getElementById('cmd-filter');
+  var input = document.getElementById('cmd-filter-input');
+  var status = document.getElementById('cmd-filter-status');
+  var none = document.getElementById('cmd-no-match');
+  if (!box || !input || !status || !none) return;
+  var groups = Array.prototype.slice.call(document.querySelectorAll('#commands .cmd-group'));
+  box.hidden = false;
+  input.addEventListener('input', function () {
+    var q = input.value.trim().toLowerCase().replace(/^!/, '');
+    var shown = 0;
+    groups.forEach(function (g) {
+      var visible = 0;
+      Array.prototype.forEach.call(g.querySelectorAll('.cmds > li'), function (li) {
+        var match = !q || li.textContent.toLowerCase().indexOf(q) !== -1;
+        li.hidden = !match;
+        if (match) visible++;
+      });
+      var notes = g.querySelector('.notes');
+      if (notes) notes.hidden = !!q;
+      g.hidden = visible === 0;
+      shown += visible;
+    });
+    none.hidden = shown !== 0;
+    status.textContent = q ? (shown === 1 ? '1 command shown' : shown + ' commands shown') : '';
+  });
+})();
+</script>
 </body>
 </html>
